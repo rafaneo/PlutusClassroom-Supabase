@@ -56,7 +56,7 @@ export default function Home() {
         >
           <img
             className="h-28"
-            src={quizSet.image_url || "/default.png"} // Use the quiz set image or default image
+            src={quizSet?.image_url || "/default.png"} // Use the quiz set image or default image
             alt={quizSet.name || "default quiz image"}
           />
           <div className="p-2 flex flex-col justify-between items-stretch flex-grow">

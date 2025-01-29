@@ -15,7 +15,8 @@ export type Question = Database['public']['Tables']['questions']['Row'] & {
 }
 
 export type QuizSet = Database['public']['Tables']['quiz_sets']['Row'] & {
-  questions: Question[]
+  image_url?: string;
+  questions: Question[];
 }
 
 export type Answer = Database['public']['Tables']['answers']['Row']
