@@ -134,6 +134,7 @@ export default function Quiz({
             </div>
           </div>
         )}
+
         {isAnswerRevealed && (
           <div className="flex justify-center">
             {question.choices.map((choice, index) => (
@@ -141,43 +142,48 @@ export default function Quiz({
                 key={choice.id}
                 className="mx-2 h-48 w-24 flex flex-col items-stretch justify-end"
               >
+                {/* Bar chart showing percentage */}
                 <div className="flex-grow relative">
                   <div
                     style={{
                       height: `${
-                        (answers.filter(
-                          (answer) => answer.choice_id === choice.id
-                        ).length *
+                        (answers.filter((answer) => answer.choice_id === choice.id)
+                          .length *
                           100) /
                         (answers.length || 1)
                       }%`,
                     }}
                     className={`absolute bottom-0 left-0 right-0 mb-1 rounded-t ${
                       index === 0
-                        ? 'bg-red-500'
+                        ? 'bbg-sky-500'
                         : index === 1
-                        ? 'bg-blue-500'
+                        ? 'bg-sky-500'
                         : index === 2
-                        ? 'bg-yellow-500'
-                        : 'bg-green-500'
+                        ? 'bg-sky-500'
+                        : 'bg-sky-500'
                     }`}
                   ></div>
                 </div>
+                
+                
                 <div
                   className={`mt-1 text-white text-lg text-center py-2 rounded-b ${
                     index === 0
-                      ? 'bg-red-500'
+                      ? 'bg-sky-700'
                       : index === 1
-                      ? 'bg-blue-500'
+                      ? 'bg-sky-700'
                       : index === 2
-                      ? 'bg-yellow-500'
-                      : 'bg-green-500'
+                      ? 'bg-sky-700'
+                      : 'bg-sky-700'
                   }`}
                 >
                   {
-                    answers.filter((answer) => answer.choice_id === choice.id)
-                      .length
+                    answers.filter((answer) => answer.choice_id === choice.id).length
                   }
+                </div>
+
+                <div className="mt-1 text-white-500 text-center text-sm">
+                  Question #{index + 1}
                 </div>
               </div>
             ))}
@@ -193,17 +199,19 @@ export default function Quiz({
                 className={`px-4 py-6 w-full text-2xl rounded font-bold text-white flex justify-between
                 ${
                   index === 0
-                    ? 'bg-red-500'
+                    ? 'bg-sky-500'
                     : index === 1
-                    ? 'bg-blue-500'
+                    ? 'bg-sky-500'
                     : index === 2
-                    ? 'bg-yellow-500'
-                    : 'bg-green-500'
+                    ? 'bg-sky-500'
+                    : 'bg-sky-500'
                 }
+                
                 ${isAnswerRevealed && !choice.is_correct ? 'opacity-60' : ''}
                `}
               >
-                <div>{choice.body}</div>
+                
+                <div>{index + 1 }) {choice.body}</div>
                 {isAnswerRevealed && (
                   <div>
                     {choice.is_correct && (

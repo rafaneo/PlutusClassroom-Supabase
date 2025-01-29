@@ -1,6 +1,11 @@
 import { Participant, supabase } from '@/types/types'
 import { on } from 'events'
 import { FormEvent, useEffect, useState } from 'react'
+import {
+  QuizSet,
+} from '@/types/types'
+
+
 
 export default function Lobby({
   gameId,
@@ -10,7 +15,38 @@ export default function Lobby({
   onRegisterCompleted: (participant: Participant) => void
 }) {
   const [participant, setParticipant] = useState<Participant | null>(null)
-  
+  const [quizSet, setQuizSet] = useState<QuizSet>()
+
+  useEffect(() => {
+    const getQuestions = async () => {
+      const { data: gameData, error: gameError } = await supabase
+        .from('games')
+        .select()
+        .eq('id', gameId)
+        .single()
+      if (gameError) {
+        console.error(gameError.message)
+        alert('Error getting game data')
+        return
+      }
+      const { data, error } = await supabase
+        .from('quiz_sets')
+        .select(`*, questions(*, choices(*))`)
+        .eq('id', gameData.quiz_set_id)
+        .order('order', {
+          ascending: true,
+          referencedTable: 'questions',
+        })
+        .single()
+      if (error) {
+        console.error(error.message)
+        getQuestions()
+        return
+      }
+      setQuizSet(data)
+    }
+  }, [gameId])
+
   useEffect(() => {
     const fetchParticipant = async () => {
       let userId: string | null = null
@@ -48,9 +84,14 @@ export default function Lobby({
 
     fetchParticipant()
   }, [gameId, onRegisterCompleted])
-
+  
   return (
-    <div className="bg-green-500 flex justify-center items-center min-h-screen">
+    <div className="bg-sky-500 flex justify-center items-center min-h-screen">
+      {/* Quiz Name Display */}
+      <div className="absolute top-4 text-3xl font-bold text-white text-center">
+        {quizSet ? quizSet.name : 'Understanding Taxes and Deductions'}
+      </div>
+  
       <div className="bg-black p-12">
         {!participant && (
           <Register
@@ -61,20 +102,21 @@ export default function Lobby({
             }}
           />
         )}
-
+  
         {participant && (
           <div className="text-white max-w-md">
-            <h1 className="text-xl pb-4">Welcome {participant.nickname}！</h1>
+            <h1 className="text-xl pb-4">Welcome {participant.nickname}!</h1>
             <p>
-              You have been registered and your nickname should show up on the
-              admin screen. Please sit back and wait until the game master
-              starts the game.
+              You have been registered, and your nickname should show up on the
+              admin screen. Please sit back and wait until the game master starts
+              the game.
             </p>
           </div>
         )}
       </div>
     </div>
   )
+  
 }
 
 function Register({
@@ -94,7 +136,7 @@ function Register({
     }
     const { data: participant, error } = await supabase
       .from('participants')
-      .insert({ nickname, game_id: gameId, user_id: userId, })
+      .insert({ nickname, game_id: gameId })
       .select()
       .single()
 

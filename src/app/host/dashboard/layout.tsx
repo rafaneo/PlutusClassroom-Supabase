@@ -65,7 +65,10 @@ export default function RootLayout({
   return (
     <>
       <header className="h-16 px-2 flex justify-between border-b border-gray-200 items-center">
-        <h1>Plutus Classroom</h1>
+        
+        <a href="/host/dashboard">
+          <img src="/plutus-logo.png" alt="Plutus Logo" className="h-[250px]" />
+        </a>
       </header>
       <div className="flex">
         <nav className="border-r border-r-gray-200">

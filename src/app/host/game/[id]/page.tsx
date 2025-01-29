@@ -126,11 +126,16 @@ export default function Home({
   const [currentQuestionSequence, setCurrentQuestionSequence] = useState(0)
 
   return (
-    <main className="bg-green-600 min-h-screen">
-      {currentScreen == AdminScreens.lobby && (
+    <main className="bg-sky-600 min-h-screen">
+      {/* Quiz Name Display */}
+      <div className="text-4xl font-bold text-center text-white pt-20">
+        {quizSet ? quizSet.name : 'Quiz Name Placeholder'}
+      </div>
+  
+      {currentScreen === AdminScreens.lobby && (
         <Lobby participants={participants} gameId={gameId}></Lobby>
       )}
-      {currentScreen == AdminScreens.quiz && (
+      {currentScreen === AdminScreens.quiz && (
         <Quiz
           question={quizSet!.questions![currentQuestionSequence]}
           questionCount={quizSet!.questions!.length}
@@ -138,7 +143,7 @@ export default function Home({
           participants={participants}
         ></Quiz>
       )}
-      {currentScreen == AdminScreens.result && (
+      {currentScreen === AdminScreens.result && (
         <Results
           participants={participants!}
           quizSet={quizSet!}
@@ -146,5 +151,6 @@ export default function Home({
         ></Results>
       )}
     </main>
-  )
+  );
+  
 }

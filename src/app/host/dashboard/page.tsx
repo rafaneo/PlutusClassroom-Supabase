@@ -27,7 +27,6 @@ export default function Home() {
 
     if (!sessionData.session) {
       await supabase.auth.signInAnonymously()
-
     }
 
     const { data, error } = await supabase
@@ -55,7 +54,11 @@ export default function Home() {
           key={quizSet.id}
           className="flex justify-start shadow my-4 mx-2 rounded"
         >
-          <img className="h-28" src="/default.png" alt="default quiz image" />
+          <img
+            className="h-28"
+            src={quizSet.image_url || "/default.png"} // Use the quiz set image or default image
+            alt={quizSet.name || "default quiz image"}
+          />
           <div className="p-2 flex flex-col justify-between items-stretch flex-grow">
             <h2 className="font-bold">{quizSet.name}</h2>
             <div className="flex justify-between items-end">

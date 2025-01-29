@@ -54,9 +54,9 @@ export default function Quiz({
   return (
     <div className="h-screen flex flex-col items-stretch bg-slate-900 relative">
       <div className="text-center">
-        <h2 className="pb-4 text-2xl bg-white font-bold mx-4 my-12 p-4 rounded inline-block md:text-3xl md:px-24">
+        <h4 className="pb-4 text-2xl bg-white font-bold mx-4 my-12 p-4 rounded inline-block md:text-3xl md:px-24">
           {question.body}
-        </h2>
+        </h4>
       </div>
 
       {!isAnswerRevealed && chosenChoice && (
@@ -97,17 +97,18 @@ export default function Quiz({
                   className={`px-4 py-6 w-full text-xl rounded text-white flex justify-between md:text-2xl md:font-bold
               ${
                 index === 0
-                  ? 'bg-red-500'
+                  ? 'bg-sky-400'
                   : index === 1
-                  ? 'bg-blue-500'
+                  ? 'bg-sky-400'
                   : index === 2
-                  ? 'bg-yellow-500'
-                  : 'bg-green-500'
+                  ? 'bg-sky-400'
+                  : 'bg-sky-400'
               }
               ${isAnswerRevealed && !choice.is_correct ? 'opacity-60' : ''}
              `}
                 >
-                  <div>{choice.body}</div>
+                  {/* Make text smaller-to show on phone */}
+                  <div className="">{choice.body}</div>
                   {isAnswerRevealed && (
                     <div>
                       {choice.is_correct && (

@@ -21,13 +21,15 @@ export default function Lobby({
   }
 
   return (
+    
     <div className="flex justify-center items-center min-h-screen">
       <div className="flex justify-between m-auto bg-black p-12">
         <div className="w-96">
           <div className="flex justify-start flex-wrap pb-4">
+            
             {participants.map((participant) => (
               <div
-                className="text-xl m-2 p-2 bg-green-500"
+                className="text-xl m-2 p-2 bg-sky-500"
                 key={participant.id}
               >
                 {participant.nickname}
@@ -45,7 +47,6 @@ export default function Lobby({
         <div className="pl-4">
           {/* <img src="/qr.png" alt="QR code" /> */}
           <Canvas
-            // text={`https://kahoot-alternative.vercel.app/game/${gameId}`}
             text={`https://localhost:3000/game/${gameId}`}
 
             options={{

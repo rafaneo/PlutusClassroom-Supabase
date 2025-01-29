@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Plutus Classroom',
-  description: 'OSS Kahoot Alternative powered by Supabase',
+  description: 'A classroom for learning about finances',
 }
 
 export default function RootLayout({
