@@ -47,7 +47,7 @@ export default function Lobby({
         <div className="pl-4">
           {/* <img src="/qr.png" alt="QR code" /> */}
           <Canvas
-            text={`https://3.67.12.136/game/${gameId}`}
+            text={`https://3.67.12.136:3001/game/${gameId}`}
 
             options={{
               errorCorrectionLevel: 'M',
